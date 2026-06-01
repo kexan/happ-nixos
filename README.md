@@ -10,7 +10,7 @@ Clone the repository into `/etc/nixos`:
 
 ```bash
 cd /etc/nixos
-git clone https://github.com/MrShitFox/happ-nixos
+sudo git clone https://github.com/MrShitFox/happ-nixos
 ```
 
 Import the module in your `configuration.nix`:
@@ -51,3 +51,8 @@ sudo nixos-rebuild switch
 * ✅ Core functionality works
 * ❌ Hysteria2 is currently not working
 * ⚠️ The project is still a work in progress (~~or maybe not~~)
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+See the LICENSE file for details.
