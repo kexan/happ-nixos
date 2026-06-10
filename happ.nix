@@ -1,12 +1,11 @@
-{ pkgs ? import <nixpkgs> {} }:
-
+{pkgs ? import <nixpkgs> {}}:
 pkgs.stdenv.mkDerivation rec {
   pname = "happ-desktop";
-  version = "2.16.2";
+  version = "2.17.1";
 
   src = pkgs.fetchurl {
     url = "https://github.com/Happ-proxy/happ-desktop/releases/download/${version}/Happ.linux.x64.deb";
-    sha256 = "1xgzifrhdrc80xd2hxn7zbmgskh58637b9q10bngbnm4542cxxsi";
+    sha256 = "sha256-5bnlKdTUxv9FJTBqxkxMucU5UyygD3A1w9Vut6X8ob4=";
   };
 
   nativeBuildInputs = with pkgs; [
@@ -21,12 +20,12 @@ pkgs.stdenv.mkDerivation rec {
     glib
     dbus
     libGL
-    xorg.libX11
-    xorg.libSM
-    xorg.libICE
-    xorg.libXext
-    xorg.libXi
-    xorg.libXtst
+    libx11
+    libsm
+    libice
+    libxext
+    libxi
+    libxtst
     e2fsprogs
     fontconfig
     freetype
@@ -52,11 +51,11 @@ pkgs.stdenv.mkDerivation rec {
     fi
 
     wrapProgram $out/happ/bin/Happ \
-      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.openssl ]}" \
+      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [pkgs.openssl]}" \
       --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
 
     wrapProgram $out/happ/bin/happd \
-      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [ pkgs.openssl ]}" \
+      --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [pkgs.openssl]}" \
       --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
 
     ln -s $out/happ/bin/Happ $out/bin/happ
